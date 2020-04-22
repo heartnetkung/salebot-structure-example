@@ -2,25 +2,24 @@
 	"name": "salebot-structure-example",
 	"version": "1.0.0",
 	"description": "",
-	"main": "index.js",
 	"scripts": {
 		"test": "jest",
 		"eslint": "eslint --quiet .",
-		"schema_dump": "node script/schema_dump"
+		"schema_dump": "node script/schema_dump",
+		"production_start": "pm2 start ecosystem.config.js",
+		"production_stop": "pm2 delete ecosystem.config.js"
 	},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/heartnetkung/salebot-structure-example.git"
 	},
-	"author": "",
 	"license": "ISC",
 	"bugs": {
 		"url": "https://github.com/heartnetkung/salebot-structure-example/issues"
 	},
 	"homepage": "https://github.com/heartnetkung/salebot-structure-example#readme",
 	"jest": {
-		"testEnvironment": "node",
-		"restoreMocks": true
+		"testEnvironment": "node"
 	},
 	"husky": {
 		"hooks": {
@@ -53,6 +52,7 @@
 		"lodash": "^4.17.15",
 		"morgan": "^1.10.0",
 		"mssql": "^6.2.0",
+		"pm2": "^4.3.1",
 		"scrypt-nonce-wrapper": "^1.1.0"
 	}
 }

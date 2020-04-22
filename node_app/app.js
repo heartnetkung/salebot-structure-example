@@ -1,4 +1,4 @@
-require("./config_env");
+require("../config_env");
 const express = require("express");
 const bodyParser = require("body-parser");
 const logger = require("morgan");
@@ -7,11 +7,11 @@ const path = require("path");
 const compression = require("compression");
 const cors = require("cors");
 const helmet = require("helmet");
-const errorHandler = require("./shared/middleware/error_handler");
-const authHandler = require("./shared/middleware/auth_handler");
-// const { logMiddleware } = require("test-stackdriver");
 const httpShutdown = require("http-shutdown");
-const mssqlConnection = require("./shared/mssql/connection_pool");
+const errorHandler = require("../shared/middleware/error_handler");
+const authHandler = require("../shared/middleware/auth_handler");
+// const { logMiddleware } = require("test-stackdriver");
+const mssqlConnection = require("../shared/mssql/connection_pool");
 const cookieSession = require("cookie-session");
 require("express-async-errors");
 
@@ -56,7 +56,7 @@ require("express-async-errors");
 	// else app.use(logMiddleware({ dev: true }));
 
 	// require all controllers
-	for (var file of glob.sync(path.join(__dirname, "/node_app/route/*.js")))
+	for (var file of glob.sync(path.join(__dirname, "/route/*.js")))
 		app.use("/" + path.basename(file, ".js"), require(file));
 
 	// healthcheck
