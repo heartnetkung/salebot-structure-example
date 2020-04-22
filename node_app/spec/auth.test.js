@@ -44,3 +44,30 @@ describe("/auth/logout", () => {
 		expect(App.getSession().userId).toBeUndefined();
 	});
 });
+
+describe("/auth/register", () => {
+	it("basic case", async () => {
+		myUser.insertUser.mockImplementationOnce(async () => []);
+		myUser.selectFromUsername.mockImplementationOnce(async () => [
+			{ username: "abc", id: 2, password: "xxx" },
+		]);
+		var res = await req(App(route))
+			.get("/auth/register?username=abc&password=123")
+			.expect(200);
+		expect(res.body.username).toBe("abc");
+		expect(typeof res.body.userId).toBe("number");
+		expect(App.getSession().username).toBe("abc");
+		expect(typeof App.getSession().userId).toBe("number");
+	});
+
+	it("return 400 'username is taken'", async () => {
+		myUser.insertUser.mockImplementationOnce(_myUser.insertUser);
+		myUser.selectFromUsername.mockImplementationOnce(
+			_myUser.selectFromUsername
+		);
+		var res = await req(App(route))
+			.get("/auth/register?username=tor&password=123")
+			.expect(400);
+		expect(res.body.error).toBe("username is taken");
+	});
+});

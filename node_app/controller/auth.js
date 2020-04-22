@@ -21,4 +21,23 @@ const logout = async (req, res) => {
 	res.json({});
 };
 
-module.exports = { login, logout };
+const register = async (req, res) => {
+	var { username, password } = req.query;
+	var hashedPassword = await scrypt.encrypt(password);
+
+	var result;
+	try {
+		result = await myUserModel.insertUser(username, hashedPassword);
+	} catch (e) {
+		if (e && e.message === "duplicate")
+			return res.status(400).json({ error: "username is taken" });
+		throw e;
+	}
+
+	var users = await myUserModel.selectFromUsername(username);
+	req.session.username = users[0].username;
+	req.session.userId = users[0].id;
+	res.json({ username, userId: users[0].id });
+};
+
+module.exports = { login, logout, register };

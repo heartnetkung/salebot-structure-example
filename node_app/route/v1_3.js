@@ -10,3 +10,4 @@ router.get("/example/error", example.error);
 //use get as it's easier to demo
 router.get("/auth/login", auth.login);
 router.get("/auth/logout", auth.logout);
+router.get("/auth/register", auth.register);
