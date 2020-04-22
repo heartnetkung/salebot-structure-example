@@ -34,7 +34,7 @@ describe("app_test", () => {
 			res.send({});
 		});
 		var result = await supertest(App(controller)).get("/").expect(200);
-		expect(App.getSession().foo).toBeUndefined();
+		expect(App.getSession()).toEqual({});
 	});
 
 	it("can get cookie, signedCookies, session", async () => {
