@@ -6,15 +6,10 @@ db1
     optname nvarchar 
     revision int 
     value bit 
-  MyUser
+  my_user
+    id int 
     password varchar nullable
     username varchar nullable
-  Persons
-    Address varchar nullable
-    City varchar nullable
-    FirstName varchar nullable
-    LastName varchar nullable
-    PersonID int nullable
   spt_fallback_db
     dbid smallint 
     name varchar 

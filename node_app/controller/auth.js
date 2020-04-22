@@ -11,7 +11,8 @@ const login = async (req, res) => {
 	if (!success)
 		return res.status(400).json({ error: "username or password is incorrect" });
 
-	req.session.username = username;
+	req.session.username = users[0].username;
+	req.session.userId = users[0].id;
 	res.json({});
 };
 
