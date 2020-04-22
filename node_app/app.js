@@ -31,6 +31,7 @@ require("express-async-errors");
 		})
 	);
 	app.use(logger("dev"));
+	app.get("/health", (req, res) => res.send("healthy"));
 	app.use(authHandler);
 
 	// if (process.env.NODE_ENV === "production")
@@ -58,9 +59,6 @@ require("express-async-errors");
 	// require all controllers
 	for (var file of glob.sync(path.join(__dirname, "/route/*.js")))
 		app.use("/" + path.basename(file, ".js"), require(file));
-
-	// healthcheck
-	app.get("/health", (req, res) => res.send("healthy"));
 
 	// error handling
 	app.use((req, res, next) =>
