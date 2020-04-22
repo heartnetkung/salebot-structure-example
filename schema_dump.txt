@@ -1,61 +1,61 @@
 db1
   MSreplication_options
-    install_failures int 
-    major_version int 
-    minor_version int 
-    optname nvarchar 
-    revision int 
-    value bit 
+    install_failures  int
+    major_version  int
+    minor_version  int
+    optname  nvarchar
+    revision  int
+    value  bit
   my_user
-    id int 
-    password varchar nullable
-    username varchar nullable
+    id  int  PRIMARY KEY
+    password  varchar  nullable
+    username  varchar  nullable  UNIQUE
   spt_fallback_db
-    dbid smallint 
-    name varchar 
-    status smallint 
-    version smallint 
-    xdttm_ins datetime 
-    xdttm_last_ins_upd datetime 
-    xfallback_dbid smallint nullable
-    xserver_name varchar 
+    dbid  smallint
+    name  varchar
+    status  smallint
+    version  smallint
+    xdttm_ins  datetime
+    xdttm_last_ins_upd  datetime
+    xfallback_dbid  smallint  nullable
+    xserver_name  varchar
   spt_fallback_dev
-    high int 
-    low int 
-    name varchar 
-    phyname varchar 
-    status smallint 
-    xdttm_ins datetime 
-    xdttm_last_ins_upd datetime 
-    xfallback_drive char nullable
-    xfallback_low int nullable
-    xserver_name varchar 
+    high  int
+    low  int
+    name  varchar
+    phyname  varchar
+    status  smallint
+    xdttm_ins  datetime
+    xdttm_last_ins_upd  datetime
+    xfallback_drive  char  nullable
+    xfallback_low  int  nullable
+    xserver_name  varchar
   spt_fallback_usg
-    dbid smallint 
-    lstart int 
-    segmap int 
-    sizepg int 
-    vstart int 
-    xdttm_ins datetime 
-    xdttm_last_ins_upd datetime 
-    xfallback_vstart int nullable
-    xserver_name varchar 
+    dbid  smallint
+    lstart  int
+    segmap  int
+    sizepg  int
+    vstart  int
+    xdttm_ins  datetime
+    xdttm_last_ins_upd  datetime
+    xfallback_vstart  int  nullable
+    xserver_name  varchar
   spt_monitor
-    connections int 
-    cpu_busy int 
-    idle int 
-    io_busy int 
-    lastrun datetime 
-    pack_errors int 
-    pack_received int 
-    pack_sent int 
-    total_errors int 
-    total_read int 
-    total_write int 
+    connections  int
+    cpu_busy  int
+    idle  int
+    io_busy  int
+    lastrun  datetime
+    pack_errors  int
+    pack_received  int
+    pack_sent  int
+    total_errors  int
+    total_read  int
+    total_write  int
   spt_values
-    high int nullable
-    low int nullable
-    name nvarchar nullable
-    number int 
-    status int nullable
-    type nchar 
+    high  int  nullable
+    low  int  nullable
+    name  nvarchar  nullable
+    number  int
+    status  int  nullable
+    type  nchar
