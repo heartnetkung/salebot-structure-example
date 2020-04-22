@@ -1,7 +1,5 @@
 const App = require("../../shared/testing/app_test");
-jest.mock("../../node_app/model/my_user");
-const myUser = require("../../node_app/model/my_user");
-const _myUser = jest.requireActual("../../node_app/model/my_user");
+const myUser = App.mockModule(__dirname, "../../node_app/model/my_user");
 const req = require("supertest");
 const route = require("../route/v1_3");
 
@@ -18,9 +16,6 @@ describe("/example/add", () => {
 
 describe("/example/get_user", () => {
 	it("basic case", async () => {
-		myUser.selectFromUsername.mockImplementationOnce(
-			_myUser.selectFromUsername
-		);
 		var res = await req(App(route))
 			.get("/example/get_user?username=tor")
 			.expect(200);

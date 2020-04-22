@@ -1,15 +1,10 @@
 const App = require("../../shared/testing/app_test");
-jest.mock("../../node_app/model/my_user");
-const myUser = require("../../node_app/model/my_user");
-const _myUser = jest.requireActual("../../node_app/model/my_user");
+const myUser = App.mockModule(__dirname, "../../node_app/model/my_user");
 const req = require("supertest");
 const route = require("../route/v1_3");
 
 describe("/auth/login", () => {
 	it("basic case", async () => {
-		myUser.selectFromUsername.mockImplementationOnce(
-			_myUser.selectFromUsername
-		);
 		var res = await req(App(route))
 			.get("/auth/login?username=tor&password=12345678")
 			.expect(200);
@@ -61,10 +56,6 @@ describe("/auth/register", () => {
 	});
 
 	it("return 400 'username is taken'", async () => {
-		myUser.insertUser.mockImplementationOnce(_myUser.insertUser);
-		myUser.selectFromUsername.mockImplementationOnce(
-			_myUser.selectFromUsername
-		);
 		var res = await req(App(route))
 			.get("/auth/register?username=tor&password=123")
 			.expect(400);
