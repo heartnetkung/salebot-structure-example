@@ -1,7 +1,14 @@
 const scrypt = require("../../shared/facade/scrypt");
 const myUserModel = require("../model/my_user");
+const { validate, username, password } = require("../../shared/facade/ajv");
+
+const loginSchema = {
+	properties: { username, password },
+	required: ["username", "password"],
+};
 
 const login = async (req, res) => {
+	validate(loginSchema, req.query);
 	var { username, password } = req.query;
 	var users = await myUserModel.selectFromUsername(username);
 	if (!users.length)
@@ -21,7 +28,13 @@ const logout = async (req, res) => {
 	res.json({});
 };
 
+const registerSchema = {
+	properties: { username, password },
+	required: ["username", "password"],
+};
+
 const register = async (req, res) => {
+	validate(registerSchema, req.query);
 	var { username, password } = req.query;
 	var hashedPassword = await scrypt.encrypt(password);
 

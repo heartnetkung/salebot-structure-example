@@ -17,7 +17,7 @@ describe("/auth/login", () => {
 			{ username: "tor", password: "foo" },
 		]);
 		var res = await req(App(route))
-			.get("/auth/login?username=tor&password=xxx")
+			.get("/auth/login?username=tor&password=xxxxxxxx")
 			.expect(400);
 		expect(res.body.error).toBe("username or password is incorrect");
 	});
@@ -25,7 +25,7 @@ describe("/auth/login", () => {
 	it("username not found, return 400 'username or password is incorrect'", async () => {
 		myUser.selectFromUsername.mockImplementationOnce(async () => []);
 		var res = await req(App(route))
-			.get("/auth/login?username=noone&password=noone")
+			.get("/auth/login?username=noone&password=noonenoone")
 			.expect(400);
 		expect(res.body.error).toBe("username or password is incorrect");
 	});
@@ -47,7 +47,7 @@ describe("/auth/register", () => {
 			{ username: "abc", id: 2, password: "xxx" },
 		]);
 		var res = await req(App(route))
-			.get("/auth/register?username=abc&password=123")
+			.get("/auth/register?username=abc&password=123123123")
 			.expect(200);
 		expect(res.body.username).toBe("abc");
 		expect(typeof res.body.userId).toBe("number");
@@ -57,7 +57,7 @@ describe("/auth/register", () => {
 
 	it("return 400 'username is taken'", async () => {
 		var res = await req(App(route))
-			.get("/auth/register?username=tor&password=123")
+			.get("/auth/register?username=tor&password=123123123")
 			.expect(400);
 		expect(res.body.error).toBe("username is taken");
 	});
