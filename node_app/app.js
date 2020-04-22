@@ -10,7 +10,7 @@ const helmet = require("helmet");
 const httpShutdown = require("http-shutdown");
 const errorHandler = require("../shared/middleware/error_handler");
 const authHandler = require("../shared/middleware/auth_handler");
-// const { logMiddleware } = require("test-stackdriver");
+const { logMiddleware } = require("test-stackdriver");
 const mssqlConnection = require("../shared/mssql/connection_pool");
 const cookieSession = require("cookie-session");
 require("express-async-errors");
@@ -34,27 +34,26 @@ require("express-async-errors");
 	app.get("/health", (req, res) => res.send("healthy"));
 	app.use(authHandler);
 
-	// if (process.env.NODE_ENV === "production")
-	// 	app.use(
-	// 		logMiddleware({
-	// 			dev: false,
-	// 			credentials: {
-	// 				type: process.env.GCP_LOGGING_TYPE,
-	// 				project_id: process.env.GCP_LOGGING_PROJECT_ID,
-	// 				private_key_id: process.env.GCP_LOGGING_PRIVATE_KEY_ID,
-	// 				private_key: process.env.GCP_LOGGING_PRIVATE_KEY,
-	// 				client_email: process.env.GCP_LOGGING_CLIENT_EMAIL,
-	// 				client_id: process.env.GCP_LOGGING_CLIENT_ID,
-	// 				auth_uri: process.env.GCP_LOGGING_AUTH_URI,
-	// 				token_uri: process.env.GCP_LOGGING_TOKEN_URI,
-	// 				auth_provider_x509_cert_url:
-	// 					process.env.GCP_LOGGING_AUTH_PROVIDER_X509_CERT_URL,
-	// 				client_x509_cert_url: process.env.GCP_LOGGING_CLIENT_X509_CERT_URL
-	// 			},
-	// 			ignoreRoute: ["/health"]
-	// 		})
-	// 	);
-	// else app.use(logMiddleware({ dev: true }));
+	if (process.env.NODE_ENV === "production")
+		app.use(
+			logMiddleware({
+				dev: false,
+				credentials: {
+					type: process.env.GCP_LOGGING_TYPE,
+					project_id: process.env.GCP_LOGGING_PROJECT_ID,
+					private_key_id: process.env.GCP_LOGGING_PRIVATE_KEY_ID,
+					private_key: process.env.GCP_LOGGING_PRIVATE_KEY,
+					client_email: process.env.GCP_LOGGING_CLIENT_EMAIL,
+					client_id: process.env.GCP_LOGGING_CLIENT_ID,
+					auth_uri: process.env.GCP_LOGGING_AUTH_URI,
+					token_uri: process.env.GCP_LOGGING_TOKEN_URI,
+					auth_provider_x509_cert_url:
+						process.env.GCP_LOGGING_AUTH_PROVIDER_X509_CERT_URL,
+					client_x509_cert_url: process.env.GCP_LOGGING_CLIENT_X509_CERT_URL,
+				},
+				ignoreRoute: ["/health"],
+			})
+		);
 
 	// require all controllers
 	for (var file of glob.sync(path.join(__dirname, "/route/*.js")))
