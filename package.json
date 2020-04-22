@@ -7,7 +7,8 @@
 		"eslint": "eslint --quiet .",
 		"schema_dump": "node script/schema_dump",
 		"production_start": "pm2 start ecosystem.config.js",
-		"production_stop": "pm2 delete ecosystem.config.js"
+		"production_stop": "pm2 delete ecosystem.config.js",
+		"deploy": "node script/deploy"
 	},
 	"repository": {
 		"type": "git",
